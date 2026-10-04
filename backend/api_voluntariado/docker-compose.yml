@@ -1,0 +1,16 @@
+# Base de datos PostgreSQL para el perfil "prod" (o para probarlo en local):
+#   docker compose up -d
+#   SPRING_PROFILES_ACTIVE=prod ./mvnw spring-boot:run
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: voluntariado
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
