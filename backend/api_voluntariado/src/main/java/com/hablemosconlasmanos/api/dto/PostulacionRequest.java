@@ -14,7 +14,7 @@ public record PostulacionRequest(
         Long programaId,
         @NotBlank(message = "Los nombres son obligatorios") @Size(max = 80) String nombres,
         @NotBlank(message = "Los apellidos son obligatorios") @Size(max = 80) String apellidos,
-        @NotBlank(message = "El email es obligatorio") @Email(message = "El email no es valido") @Size(max = 120) String email,
+        @NotBlank(message = "El email es obligatorio") @Email(message = "El email no es válido") @Size(max = 120) String email,
         @Size(max = 30) String telefono,
         @Size(max = 30) String documentoIdentidad,
         @Past(message = "La fecha de nacimiento debe ser pasada") LocalDate fechaNacimiento,
@@ -23,8 +23,8 @@ public record PostulacionRequest(
         @Size(max = 120) String profesion,
         @Size(max = 20) String nivelLenguaSenas,
         @Size(max = 2000) String experiencia,
-        @NotBlank(message = "Cuentanos tu motivacion") @Size(max = 2000) String motivacion,
+        @NotBlank(message = "Cuéntanos tu motivación") @Size(max = 2000) String motivacion,
         @Size(max = 300) String disponibilidad,
         @Size(max = 500) String cvUrl,
-        @AssertTrue(message = "Debes aceptar la politica de tratamiento de datos") boolean aceptaPoliticaDatos) {
+        @AssertTrue(message = "Debes aceptar la política de tratamiento de datos") boolean aceptaPoliticaDatos) {
 }

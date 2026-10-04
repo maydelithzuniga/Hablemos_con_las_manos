@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponseDTO> manejarIntegridad(DataIntegrityViolationException ex, HttpServletRequest request) {
         return respuesta(HttpStatus.CONFLICT,
-                "La operacion no es posible: el registro esta en uso o ya existe uno con esos datos", request, null);
+                "La operación no es posible: el registro está en uso o ya existe uno con esos datos", request, null);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -51,18 +51,18 @@ public class GlobalExceptionHandler {
         List<String> detalles = ex.getBindingResult().getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
                 .toList();
-        return respuesta(HttpStatus.BAD_REQUEST, "Error de validacion en los datos enviados", request, detalles);
+        return respuesta(HttpStatus.BAD_REQUEST, "Error de validación en los datos enviados", request, detalles);
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ErrorResponseDTO> manejarFormatoInvalido(Exception ex, HttpServletRequest request) {
-        log.debug("Formato invalido: {}", ex.getMessage());
-        return respuesta(HttpStatus.BAD_REQUEST, "El formato de los datos enviados no es valido", request, null);
+        log.debug("Formato inválido: {}", ex.getMessage());
+        return respuesta(HttpStatus.BAD_REQUEST, "El formato de los datos enviados no es válido", request, null);
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponseDTO> manejarArchivoGrande(MaxUploadSizeExceededException ex, HttpServletRequest request) {
-        return respuesta(HttpStatus.PAYLOAD_TOO_LARGE, "El archivo supera el tamanio maximo permitido", request, null);
+        return respuesta(HttpStatus.PAYLOAD_TOO_LARGE, "El archivo supera el tamaño máximo permitido", request, null);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
@@ -72,13 +72,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponseDTO> manejarAccesoDenegado(AccessDeniedException ex, HttpServletRequest request) {
-        return respuesta(HttpStatus.FORBIDDEN, "No tienes permisos para realizar esta accion", request, null);
+        return respuesta(HttpStatus.FORBIDDEN, "No tienes permisos para realizar esta acción", request, null);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> manejarErrorGeneral(Exception ex, HttpServletRequest request) {
         log.error("Error no controlado en {}", request.getRequestURI(), ex);
-        return respuesta(HttpStatus.INTERNAL_SERVER_ERROR, "Ocurrio un error inesperado en el servidor", request, null);
+        return respuesta(HttpStatus.INTERNAL_SERVER_ERROR, "Ocurrió un error inesperado en el servidor", request, null);
     }
 
     private ResponseEntity<ErrorResponseDTO> respuesta(HttpStatus estado, String mensaje,

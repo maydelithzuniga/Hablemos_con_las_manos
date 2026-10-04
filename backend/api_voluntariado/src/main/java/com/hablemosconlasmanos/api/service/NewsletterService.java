@@ -44,15 +44,15 @@ public class NewsletterService {
             s.setActivo(true);
             notificacionService.suscripcionConfirmada(s, urlBaja + "?token=" + s.getTokenBaja());
         }
-        return new MensajeDTO("Gracias por suscribirte a nuestro boletin");
+        return new MensajeDTO("¡Gracias por suscribirte a nuestro boletín!");
     }
 
     @Transactional
     public MensajeDTO darDeBaja(String token) {
         Suscriptor s = suscriptorRepository.findByTokenBaja(token)
-                .orElseThrow(() -> new RecursoNoEncontradoException("El enlace de baja no es valido"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("El enlace de baja no es válido"));
         s.setActivo(false);
-        return new MensajeDTO("Te diste de baja del boletin");
+        return new MensajeDTO("Te diste de baja del boletín");
     }
 
     public List<SuscriptorDTO> listarActivos() {

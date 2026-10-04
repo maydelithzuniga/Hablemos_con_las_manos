@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 public record ProgramaRequest(
         @NotBlank(message = "El titulo es obligatorio") @Size(max = 150) String titulo,
         @NotBlank(message = "El resumen es obligatorio") @Size(max = 400) String resumen,
-        @NotBlank(message = "La descripcion es obligatoria") String descripcion,
+        @NotBlank(message = "La descripción es obligatoria") String descripcion,
         @NotNull(message = "El tipo es obligatorio") TipoPrograma tipo,
         @NotNull(message = "La modalidad es obligatoria") Modalidad modalidad,
         @Size(max = 80) String duracion,

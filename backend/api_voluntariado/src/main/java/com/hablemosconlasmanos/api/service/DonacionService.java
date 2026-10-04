@@ -78,11 +78,11 @@ public class DonacionService {
     public void procesarNotificacion(String secreto, NotificacionPagoRequest r) {
         if (secreto == null || !MessageDigest.isEqual(
                 secreto.getBytes(StandardCharsets.UTF_8), webhookSecret.getBytes(StandardCharsets.UTF_8))) {
-            throw new org.springframework.security.access.AccessDeniedException("Firma de webhook invalida");
+            throw new org.springframework.security.access.AccessDeniedException("Firma de webhook inválida");
         }
         Donacion d = buscarPorReferencia(r.referencia());
         if (d.getEstado() == EstadoDonacion.COMPLETADA && r.estado() != EstadoDonacion.CANCELADA) {
-            log.info("Notificacion repetida para la donacion {}, se ignora", d.getReferencia());
+            log.info("Notificación repetida para la donación {}, se ignora", d.getReferencia());
             return;
         }
         actualizarEstado(d, r.estado(), r.idTransaccion(), r.metodoPago());
@@ -97,9 +97,9 @@ public class DonacionService {
     /** Cambio manual desde el panel (ej. transferencia bancaria confirmada). */
     @Transactional
     public DonacionDTO cambiarEstado(Long id, EstadoDonacion estado) {
-        Donacion d = donacionRepository.findById(id).orElseThrow(() -> RecursoNoEncontradoException.de("Donacion", id));
+        Donacion d = donacionRepository.findById(id).orElseThrow(() -> RecursoNoEncontradoException.de("Donación", id));
         if (d.getEstado() == estado) {
-            throw new ReglaNegocioException("La donacion ya tiene el estado " + estado);
+            throw new ReglaNegocioException("La donación ya tiene el estado " + estado);
         }
         actualizarEstado(d, estado, d.getIdTransaccion(), d.getMetodoPago() != null ? d.getMetodoPago() : "MANUAL");
         return DonacionDTO.de(d);
@@ -110,7 +110,7 @@ public class DonacionService {
                 .map(DonacionDTO::de).getContent();
         return CsvUtil.construir(
                 Arrays.asList("Referencia", "Fecha", "Tipo", "Monto", "Moneda", "Estado", "Nombre", "Email",
-                        "Documento", "Pais", "Proyecto", "Metodo de pago", "Transaccion", "Fecha de pago"),
+                        "Documento", "País", "Proyecto", "Método de pago", "Transacción", "Fecha de pago"),
                 donaciones.stream().map(d -> Arrays.<Object>asList(d.referencia(), d.creadoEn(), d.tipo(), d.monto(),
                         d.moneda(), d.estado(), d.nombre(), d.email(), d.documentoIdentidad(), d.pais(),
                         d.proyectoTitulo(), d.metodoPago(), d.idTransaccion(), d.fechaPago())).toList());
@@ -128,6 +128,6 @@ public class DonacionService {
 
     private Donacion buscarPorReferencia(String referencia) {
         return donacionRepository.findByReferencia(referencia)
-                .orElseThrow(() -> RecursoNoEncontradoException.de("Donacion", referencia));
+                .orElseThrow(() -> RecursoNoEncontradoException.de("Donación", referencia));
     }
 }

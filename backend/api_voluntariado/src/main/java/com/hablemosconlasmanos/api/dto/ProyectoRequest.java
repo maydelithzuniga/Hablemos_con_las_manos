@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public record ProyectoRequest(
         @NotBlank(message = "El titulo es obligatorio") @Size(max = 150) String titulo,
         @NotBlank(message = "El resumen es obligatorio") @Size(max = 400) String resumen,
-        @NotBlank(message = "La descripcion es obligatoria") String descripcion,
-        @NotNull(message = "El pais es obligatorio") Long paisId,
+        @NotBlank(message = "La descripción es obligatoria") String descripcion,
+        @NotNull(message = "El país es obligatorio") Long paisId,
         Long programaId,
         @NotNull(message = "El area tematica es obligatoria") AreaTematica area,
         EstadoProyecto estado,

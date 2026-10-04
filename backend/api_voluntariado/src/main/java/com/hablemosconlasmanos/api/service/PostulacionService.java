@@ -51,13 +51,13 @@ public class PostulacionService {
             }
             if (postulacionRepository.existsByEmailIgnoreCaseAndConvocatoriaIdAndEstadoNotIn(
                     email, convocatoria.getId(), ESTADOS_CERRADOS)) {
-                throw new ReglaNegocioException("Ya tienes una postulacion activa en esta convocatoria");
+                throw new ReglaNegocioException("Ya tienes una postulación activa en esta convocatoria");
             }
             programa = convocatoria.getPrograma();
         } else if (r.programaId() != null) {
             programa = programaService.buscar(r.programaId());
             if (!programa.isActivo()) {
-                throw new ReglaNegocioException("El programa no esta recibiendo postulaciones");
+                throw new ReglaNegocioException("El programa no está recibiendo postulaciones");
             }
         }
         if (r.cvUrl() != null && !r.cvUrl().isBlank() && !r.cvUrl().matches("^cv/[a-f0-9-]{36}\\.pdf$")) {
@@ -87,7 +87,7 @@ public class PostulacionService {
         postulacionRepository.save(p);
         notificacionService.postulacionRecibida(p);
         return new PostulacionCreadaDTO(p.getCodigo(),
-                "Recibimos tu postulacion. Guarda tu codigo de seguimiento: " + p.getCodigo());
+                "Recibimos tu postulación. Guarda tu código de seguimiento: " + p.getCodigo());
     }
 
     /** Consulta publica: requiere el codigo y el email usado al postular. */
@@ -95,7 +95,7 @@ public class PostulacionService {
         return postulacionRepository.findByCodigo(codigo.trim().toUpperCase(Locale.ROOT))
                 .filter(p -> email != null && p.getEmail().equalsIgnoreCase(email.trim()))
                 .map(SeguimientoPostulacionDTO::de)
-                .orElseThrow(() -> new RecursoNoEncontradoException("No encontramos una postulacion con esos datos"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("No encontramos una postulación con esos datos"));
     }
 
     public PaginaDTO<PostulacionDTO> buscar(EstadoPostulacion estado, Long convocatoriaId, String texto,
@@ -136,7 +136,7 @@ public class PostulacionService {
                 .map(PostulacionDTO::de).getContent();
         return CsvUtil.construir(
                 Arrays.asList("Codigo", "Fecha", "Estado", "Postula a", "Nombres", "Apellidos", "Email", "Telefono",
-                        "Documento", "Pais", "Ciudad", "Profesion", "Lengua de senas", "Disponibilidad", "CV"),
+                        "Documento", "País", "Ciudad", "Profesión", "Lengua de señas", "Disponibilidad", "CV"),
                 todas.stream().map(p -> Arrays.<Object>asList(p.codigo(), p.creadoEn(), p.estado(), p.postulacionA(),
                         p.nombres(), p.apellidos(), p.email(), p.telefono(), p.documentoIdentidad(),
                         p.paisResidencia(), p.ciudad(), p.profesion(), p.nivelLenguaSenas(), p.disponibilidad(),
@@ -144,7 +144,7 @@ public class PostulacionService {
     }
 
     private Postulacion buscar(Long id) {
-        return postulacionRepository.findById(id).orElseThrow(() -> RecursoNoEncontradoException.de("Postulacion", id));
+        return postulacionRepository.findById(id).orElseThrow(() -> RecursoNoEncontradoException.de("Postulación", id));
     }
 
     private String generarCodigo() {

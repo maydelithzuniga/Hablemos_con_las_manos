@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 
 public record ContactoRequest(
         @NotBlank(message = "El nombre es obligatorio") @Size(max = 120) String nombre,
-        @NotBlank(message = "El email es obligatorio") @Email(message = "El email no es valido") @Size(max = 120) String email,
+        @NotBlank(message = "El email es obligatorio") @Email(message = "El email no es válido") @Size(max = 120) String email,
         @Size(max = 30) String telefono,
         @Size(max = 150) String organizacion,
         @NotNull(message = "El tipo de consulta es obligatorio") TipoMensaje tipo,

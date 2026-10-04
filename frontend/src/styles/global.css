@@ -1,0 +1,780 @@
+/* ==========================================================================
+   Hablemos con las Manos - sistema visual
+   Colores, tipografias y decoraciones tomados del material
+   "Senas que rompen barreras" (@LSP_EDUCACION).
+   ========================================================================== */
+
+:root {
+  /* Marca */
+  --rosa: #f7627e;
+  --rosa-fuerte: #e8396e;
+  --rosa-claro: #ffe3ea;
+  --amarillo: #ffd200;
+  --naranja: #fdb515;
+  --naranja-claro: #fff1cc;
+  --mostaza: #edb000;
+  --rojo: #ef4d5c;
+  --rojo-oscuro: #b30000;
+  --violeta: #5b21e6;
+  --lavanda: #aab4ff;
+  --celeste: #cdebfa;
+  --cielo: #c9e6f4;
+  --edificios: #a9cbe6;
+  --verde: #6cbf3a;
+  --verde-oscuro: #4f9a2a;
+  --tierra: #c99a6e;
+
+  /* Neutros */
+  --marron: #3d1f12;
+  --marron-suave: #6b4a3a;
+  --crema: #fffaf2;
+  --blanco: #ffffff;
+  --gris-confeti: #dfe7f1;
+  --borde: #f0e2d6;
+
+  /* Tipografia */
+  --fuente: 'Fredoka', system-ui, sans-serif;
+  --fuente-display: 'Luckiest Guy', 'Fredoka', system-ui, sans-serif;
+
+  /* Formas */
+  --radio: 22px;
+  --radio-sm: 14px;
+  --sombra: 0 10px 30px rgba(61, 31, 18, 0.1);
+  --sombra-dura: 6px 6px 0 var(--marron);
+  --ancho: 1180px;
+  --gutter: 16px;
+
+  /* Patron de "confeti" del fondo de las diapositivas */
+  --confeti: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg stroke='%23dfe7f1' stroke-width='7' stroke-linecap='round'%3E%3Cpath d='M20 30l30 10'/%3E%3Cpath d='M95 15l-12 26'/%3E%3Cpath d='M150 40l28-14'/%3E%3Cpath d='M30 110l12 26'/%3E%3Cpath d='M90 95l32 4'/%3E%3Cpath d='M170 105l-6 30'/%3E%3Cpath d='M15 185l28-12'/%3E%3Cpath d='M100 170l24 22'/%3E%3Cpath d='M175 180l30 6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--marron);
+  background: var(--crema);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--fuente);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  color: var(--marron);
+}
+
+h1 {
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+}
+
+h2 {
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--violeta);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- Layout */
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.seccion {
+  position: relative;
+  padding: clamp(56px, 8vw, 96px) 0;
+  overflow: hidden;
+}
+
+.seccion--confeti {
+  background-color: var(--blanco);
+  background-image: var(--confeti);
+}
+
+.seccion--crema {
+  background: var(--crema);
+}
+
+.seccion--rosa {
+  background: var(--rosa);
+  color: var(--blanco);
+}
+
+.seccion--amarillo {
+  background: var(--naranja);
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.grid--2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  align-items: center;
+}
+
+.grid--3 {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+}
+
+.grid--4 {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+}
+
+.centro {
+  text-align: center;
+}
+
+.pila > * + * {
+  margin-top: 16px;
+}
+
+/* ----------------------------------------------------------- Decoraciones */
+
+/* Manchas organicas de las esquinas (amarilla arriba-izq, rosa abajo-der) */
+.mancha {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mancha--amarilla {
+  top: -80px;
+  left: -90px;
+  width: 300px;
+  height: 260px;
+  background: var(--naranja);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+}
+
+.mancha--rosa {
+  right: -100px;
+  bottom: -110px;
+  width: 340px;
+  height: 300px;
+  background: var(--rosa);
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+.mancha--rosa-arriba {
+  top: -120px;
+  right: -90px;
+  width: 360px;
+  height: 260px;
+  background: var(--rosa);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+.mancha::after {
+  /* las "gotitas" blancas de las manchas */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.9) 3px, transparent 4px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 5px, transparent 6px);
+  background-size: 70px 60px, 110px 90px;
+  background-position: 20px 10px, 50px 40px;
+  opacity: 0.8;
+  border-radius: inherit;
+}
+
+.seccion > .contenedor {
+  position: relative;
+  z-index: 1;
+}
+
+/* Texto display con sombra rosa, como "EN 2010..." */
+.display {
+  font-family: var(--fuente-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--amarillo);
+  text-shadow: 4px 4px 0 var(--rosa);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.display--rojo {
+  color: var(--rojo);
+  text-shadow: none;
+}
+
+.display--blanco {
+  color: var(--blanco);
+  text-shadow: 4px 4px 0 var(--marron);
+}
+
+.destacado {
+  color: var(--rojo);
+}
+
+/* Cajitas blancas redondeadas de los titulos ("SESION 2:") */
+.pildora {
+  display: inline-block;
+  background: var(--crema);
+  color: var(--marron);
+  font-weight: 700;
+  border-radius: 22px;
+  padding: 0.15em 0.55em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  line-height: 1.5;
+}
+
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--rosa-claro);
+  color: var(--rosa-fuerte);
+}
+
+.etiqueta--amarilla {
+  background: var(--naranja-claro);
+  color: #9a5b00;
+}
+
+.etiqueta--violeta {
+  background: #ece6ff;
+  color: var(--violeta);
+}
+
+/* Globo de dialogo ("Gusto en conocerl@s!!") */
+.globo {
+  position: relative;
+  display: inline-block;
+  background: var(--blanco);
+  border: 3px solid var(--marron);
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 0 var(--marron);
+}
+
+.globo::after {
+  content: '';
+  position: absolute;
+  right: 26px;
+  bottom: -18px;
+  width: 22px;
+  height: 22px;
+  background: var(--blanco);
+  border-right: 3px solid var(--marron);
+  border-bottom: 3px solid var(--marron);
+  transform: skewX(-30deg) rotate(30deg);
+}
+
+.globo--izq::after {
+  right: auto;
+  left: 26px;
+  transform: skewX(30deg) rotate(60deg);
+}
+
+/* Banderines de colores ("CONSEJOS") */
+.banderines {
+  height: 70px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='70' viewBox='0 0 360 70'%3E%3Cpath d='M0 6 Q180 26 360 6' fill='none' stroke='%23fdb515' stroke-width='3'/%3E%3Cpath d='M10 8 l40 3 -18 42z' fill='%233fa37a'/%3E%3Cpath d='M70 13 l40 3 -22 44z' fill='%234a6fc4'/%3E%3Cpath d='M130 17 l42 1 -20 46z' fill='%23fdb515'/%3E%3Cpath d='M190 18 l42 -1 -18 46z' fill='%23ef4d5c'/%3E%3Cpath d='M250 15 l40 -3 -16 44z' fill='%233fa37a'/%3E%3Cpath d='M308 10 l40 -4 -14 42z' fill='%23fdb515'/%3E%3C/svg%3E") repeat-x;
+  background-size: 360px 70px;
+}
+
+/* Fondo de ondas de colores ("RECORDAMOS LO APRENDIDO") */
+.ondas {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.7) 2px, transparent 3px) 0 0 / 60px 60px,
+    linear-gradient(115deg, var(--amarillo) 0 18%, #ff7fa0 18% 33%, var(--mostaza) 33% 48%, var(--lavanda) 48% 63%, var(--amarillo) 63%);
+}
+
+/* --------------------------------------------------------------- Botones */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--fuente);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 3px solid var(--marron);
+  border-radius: 999px;
+  padding: 10px 24px;
+  cursor: pointer;
+  background: var(--amarillo);
+  color: var(--marron);
+  box-shadow: 0 4px 0 var(--marron);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s;
+  white-space: nowrap;
+}
+
+.boton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--marron);
+}
+
+.boton:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--marron);
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.boton--rosa {
+  background: var(--rosa);
+  color: var(--blanco);
+}
+
+.boton--blanco {
+  background: var(--blanco);
+}
+
+.boton--violeta {
+  background: var(--violeta);
+  color: var(--blanco);
+}
+
+.boton--chico {
+  padding: 6px 16px;
+  font-size: 0.9rem;
+}
+
+.boton--grande {
+  padding: 14px 32px;
+  font-size: 1.15rem;
+}
+
+.enlace-flecha {
+  font-weight: 700;
+  color: var(--rosa-fuerte);
+  text-decoration: none;
+}
+
+.enlace-flecha:hover {
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------- Tarjetas */
+.tarjeta {
+  position: relative;
+  background: var(--blanco);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.tarjeta {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.tarjeta:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(61, 31, 18, 0.16);
+}
+
+.tarjeta__imagen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--celeste);
+  display: grid;
+  place-items: center;
+}
+
+.tarjeta__imagen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tarjeta__imagen--ilustracion img {
+  object-fit: contain;
+  padding: 14px 12px 0;
+  object-position: bottom;
+}
+
+.tarjeta__cuerpo {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.tarjeta__cuerpo h3 {
+  margin: 0;
+}
+
+.tarjeta__cuerpo p {
+  margin: 0;
+  color: var(--marron-suave);
+}
+
+.tarjeta__pie {
+  margin-top: auto;
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--marron-suave);
+}
+
+.caja {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: clamp(20px, 4vw, 36px);
+}
+
+.caja--borde {
+  border: 3px solid var(--marron);
+  box-shadow: var(--sombra-dura);
+}
+
+/* --------------------------------------------------------- Encabezados de seccion */
+.titulo-seccion {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.titulo-seccion h2 {
+  margin: 10px 0 8px;
+}
+
+.titulo-seccion p {
+  max-width: 680px;
+  color: var(--marron-suave);
+  font-size: 1.1rem;
+}
+
+.titulo-seccion.centro p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.titulo-seccion__fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------------- Formularios */
+.formulario {
+  display: grid;
+  gap: 18px;
+}
+
+.formulario__fila {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 18px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label,
+.campo .campo__titulo {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font-family: var(--fuente);
+  font-size: 1rem;
+  color: var(--marron);
+  background: var(--crema);
+  border: 2px solid var(--borde);
+  border-radius: var(--radio-sm);
+  padding: 12px 14px;
+  width: 100%;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.campo textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: none;
+  border-color: var(--rosa);
+  background: var(--blanco);
+}
+
+.campo__ayuda {
+  font-size: 0.85rem;
+  color: var(--marron-suave);
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  accent-color: var(--rosa);
+  flex-shrink: 0;
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.opcion {
+  position: relative;
+}
+
+.opcion input {
+  position: absolute;
+  opacity: 0;
+}
+
+.opcion span {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 2px solid var(--borde);
+  background: var(--crema);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.opcion input:checked + span {
+  background: var(--rosa);
+  border-color: var(--rosa);
+  color: var(--blanco);
+}
+
+.opcion input:focus-visible + span {
+  outline: 3px solid var(--violeta);
+  outline-offset: 2px;
+}
+
+.alerta {
+  border-radius: var(--radio-sm);
+  padding: 14px 18px;
+  font-weight: 500;
+}
+
+.alerta--exito {
+  background: #e3f6d8;
+  color: #2c5e14;
+}
+
+.alerta--error {
+  background: #ffe1e4;
+  color: var(--rojo-oscuro);
+}
+
+.alerta ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+}
+
+/* ---------------------------------------------------------------- Varios */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.chip {
+  font-family: var(--fuente);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--marron);
+  background: var(--blanco);
+  color: var(--marron);
+  cursor: pointer;
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--marron);
+  color: var(--blanco);
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.cargando {
+  display: grid;
+  place-items: center;
+  padding: 60px 0;
+  color: var(--marron-suave);
+}
+
+.cargando::before {
+  content: '';
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 5px solid var(--rosa-claro);
+  border-top-color: var(--rosa);
+  animation: girar 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flotar {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.flota {
+  animation: flotar 5s ease-in-out infinite;
+}
+
+.vacio {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--marron-suave);
+}
+
+.vacio img {
+  width: 160px;
+  margin: 0 auto 10px;
+}
+
+.contenido-rico {
+  font-size: 1.1rem;
+}
+
+.contenido-rico p {
+  margin-bottom: 1.2em;
+  white-space: pre-line;
+}
+
+.lista-check {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.lista-check li {
+  position: relative;
+  padding-left: 34px;
+}
+
+.lista-check li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--amarillo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12l4 4 8-8' fill='none' stroke='%233d1f12' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
