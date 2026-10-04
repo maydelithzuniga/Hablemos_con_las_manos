@@ -38,35 +38,35 @@ public class NotificacionService {
 
     @Async
     public void postulacionRecibida(Postulacion p) {
-        enviar(p.getEmail(), "Recibimos tu postulacion - Hablemos con las Manos",
+        enviar(p.getEmail(), "Recibimos tu postulación - Hablemos con las Manos",
                 "Hola " + p.getNombres() + ",\n\n"
-                        + "Gracias por querer ser parte de nuestro voluntariado. Recibimos tu postulacion "
-                        + "y nuestro equipo la revisara pronto.\n\n"
-                        + "Tu codigo de seguimiento es: " + p.getCodigo() + "\n"
-                        + "Con el puedes consultar el estado de tu postulacion en nuestra web.\n\n"
+                        + "Gracias por querer ser parte de nuestro voluntariado. Recibimos tu postulación "
+                        + "y nuestro equipo la revisará pronto.\n\n"
+                        + "Tu código de seguimiento es: " + p.getCodigo() + "\n"
+                        + "Con él puedes consultar el estado de tu postulación en nuestra web.\n\n"
                         + "Un abrazo,\nEquipo Hablemos con las Manos");
-        enviar(correoEquipo, "Nueva postulacion: " + p.getNombres() + " " + p.getApellidos(),
-                "Se recibio una nueva postulacion (" + p.getCodigo() + ") de " + p.getEmail() + ".");
+        enviar(correoEquipo, "Nueva postulación: " + p.getNombres() + " " + p.getApellidos(),
+                "Se recibió una nueva postulación (" + p.getCodigo() + ") de " + p.getEmail() + ".");
     }
 
     @Async
     public void estadoPostulacionCambiado(Postulacion p) {
         String detalle = switch (p.getEstado()) {
-            case EN_REVISION -> "Tu postulacion esta siendo revisada por nuestro equipo.";
-            case ENTREVISTA -> "Queremos conocerte! Pronto te contactaremos para coordinar una entrevista.";
-            case ACEPTADA -> "Felicitaciones! Fuiste seleccionado(a) como voluntario(a). Te escribiremos con los proximos pasos.";
-            case RECHAZADA -> "En esta oportunidad no continuaras en el proceso. Te invitamos a postular a futuras convocatorias.";
-            default -> "El estado de tu postulacion cambio a: " + p.getEstado();
+            case EN_REVISION -> "Tu postulación está siendo revisada por nuestro equipo.";
+            case ENTREVISTA -> "¡Queremos conocerte! Pronto te contactaremos para coordinar una entrevista.";
+            case ACEPTADA -> "¡Felicitaciones! Fuiste seleccionado(a) como voluntario(a). Te escribiremos con los próximos pasos.";
+            case RECHAZADA -> "En esta oportunidad no continuarás en el proceso. Te invitamos a postular a futuras convocatorias.";
+            default -> "El estado de tu postulación cambió a: " + p.getEstado();
         };
-        enviar(p.getEmail(), "Actualizacion de tu postulacion " + p.getCodigo(),
+        enviar(p.getEmail(), "Actualización de tu postulación " + p.getCodigo(),
                 "Hola " + p.getNombres() + ",\n\n" + detalle + "\n\nEquipo Hablemos con las Manos");
     }
 
     @Async
     public void donacionConfirmada(Donacion d) {
-        enviar(d.getEmail(), "Gracias por tu donacion!",
+        enviar(d.getEmail(), "¡Gracias por tu donación!",
                 "Hola " + d.getNombre() + ",\n\n"
-                        + "Confirmamos tu " + (d.getTipo().name().equals("MENSUAL") ? "aporte mensual" : "donacion")
+                        + "Confirmamos tu " + (d.getTipo().name().equals("MENSUAL") ? "aporte mensual" : "donación")
                         + " de " + d.getMoneda() + " " + d.getMonto() + " (referencia " + d.getReferencia() + ").\n"
                         + "Tu apoyo hace posible nuestros proyectos. Gracias!\n\nEquipo Hablemos con las Manos");
     }
@@ -78,14 +78,14 @@ public class NotificacionService {
                         + "Equipo Hablemos con las Manos");
         enviar(correoEquipo, "[Contacto - " + m.getTipo() + "] " + m.getAsunto(),
                 "De: " + m.getNombre() + " <" + m.getEmail() + ">\n"
-                        + (m.getOrganizacion() != null ? "Organizacion: " + m.getOrganizacion() + "\n" : "")
+                        + (m.getOrganizacion() != null ? "Organización: " + m.getOrganizacion() + "\n" : "")
                         + "\n" + m.getMensaje());
     }
 
     @Async
     public void suscripcionConfirmada(Suscriptor s, String urlBaja) {
-        enviar(s.getEmail(), "Te suscribiste a nuestro boletin",
-                "Gracias por suscribirte! Recibiras noticias de nuestros proyectos y convocatorias.\n\n"
+        enviar(s.getEmail(), "Te suscribiste a nuestro boletín",
+                "¡Gracias por suscribirte! Recibirás noticias de nuestros proyectos y convocatorias.\n\n"
                         + "Si deseas darte de baja: " + urlBaja);
     }
 
@@ -96,7 +96,7 @@ public class NotificacionService {
         }
         JavaMailSender sender = mailSender.getIfAvailable();
         if (sender == null) {
-            log.warn("No hay JavaMailSender configurado; no se envio el correo a {}", para);
+            log.warn("No hay JavaMailSender configurado; no se envió el correo a {}", para);
             return;
         }
         try {

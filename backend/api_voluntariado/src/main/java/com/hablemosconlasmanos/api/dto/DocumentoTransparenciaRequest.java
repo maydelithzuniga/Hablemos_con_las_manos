@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 public record DocumentoTransparenciaRequest(
         @NotBlank(message = "El titulo es obligatorio") @Size(max = 200) String titulo,
         @NotNull(message = "El tipo es obligatorio") TipoDocumento tipo,
-        @NotNull(message = "El anio es obligatorio") @Min(1990) @Max(2100) Integer anio,
+        @NotNull(message = "El año es obligatorio") @Min(1990) @Max(2100) Integer anio,
         @NotBlank(message = "La URL del archivo es obligatoria") @Size(max = 500) String archivoUrl,
         @Size(max = 500) String descripcion) {
 }

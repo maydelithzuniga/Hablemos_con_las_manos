@@ -53,7 +53,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("{\"estado\":429,\"error\":\"Too Many Requests\","
-                    + "\"mensaje\":\"Demasiados intentos, espera un minuto e intentalo nuevamente\"}");
+                    + "\"mensaje\":\"Demasiados intentos, espera un minuto e inténtalo nuevamente\"}");
             return;
         }
         chain.doFilter(request, response);

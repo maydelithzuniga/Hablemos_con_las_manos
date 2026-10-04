@@ -41,7 +41,7 @@ public class PaisService {
     public PaisDetalleDTO detalle(String codigo) {
         Pais pais = paisRepository.findByCodigoIgnoreCase(codigo)
                 .filter(Pais::isActivo)
-                .orElseThrow(() -> RecursoNoEncontradoException.de("Pais", codigo));
+                .orElseThrow(() -> RecursoNoEncontradoException.de("País", codigo));
         List<ProyectoDTO> proyectos = proyectoRepository
                 .buscar(pais.getCodigo(), null, null, Pageable.ofSize(100)).stream()
                 .map(ProyectoDTO::de).toList();
@@ -54,7 +54,7 @@ public class PaisService {
     @Transactional
     public PaisDTO crear(PaisRequest request) {
         if (paisRepository.existsByCodigoIgnoreCase(request.codigo())) {
-            throw new ReglaNegocioException("Ya existe un pais con el codigo " + request.codigo());
+            throw new ReglaNegocioException("Ya existe un país con el código " + request.codigo());
         }
         Pais pais = new Pais();
         aplicar(pais, request);
@@ -67,7 +67,7 @@ public class PaisService {
         paisRepository.findByCodigoIgnoreCase(request.codigo())
                 .filter(otro -> !otro.getId().equals(id))
                 .ifPresent(otro -> {
-                    throw new ReglaNegocioException("Ya existe un pais con el codigo " + request.codigo());
+                    throw new ReglaNegocioException("Ya existe un país con el código " + request.codigo());
                 });
         aplicar(pais, request);
         return PaisDTO.de(pais);
@@ -79,7 +79,7 @@ public class PaisService {
     }
 
     public Pais buscar(Long id) {
-        return paisRepository.findById(id).orElseThrow(() -> RecursoNoEncontradoException.de("Pais", id));
+        return paisRepository.findById(id).orElseThrow(() -> RecursoNoEncontradoException.de("País", id));
     }
 
     private void aplicar(Pais pais, PaisRequest r) {

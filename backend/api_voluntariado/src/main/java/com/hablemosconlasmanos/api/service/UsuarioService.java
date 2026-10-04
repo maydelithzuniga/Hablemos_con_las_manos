@@ -31,7 +31,7 @@ public class UsuarioService {
     @Transactional
     public UsuarioDTO crear(UsuarioRequest r) {
         if (r.password() == null || r.password().isBlank()) {
-            throw new IllegalArgumentException("La contrasena es obligatoria");
+            throw new IllegalArgumentException("La contraseña es obligatoria");
         }
         if (usuarioRepository.existsByEmailIgnoreCase(r.email())) {
             throw new ReglaNegocioException("Ya existe un usuario con el email " + r.email());

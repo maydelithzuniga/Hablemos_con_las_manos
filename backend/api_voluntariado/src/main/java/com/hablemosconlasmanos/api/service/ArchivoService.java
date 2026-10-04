@@ -43,7 +43,7 @@ public class ArchivoService {
     public ArchivoDTO guardarImagen(MultipartFile archivo) {
         String extension = detectarTipo(archivo);
         if (extension.equals("pdf")) {
-            throw new IllegalArgumentException("Solo se permiten imagenes JPG, PNG, WEBP o GIF");
+            throw new IllegalArgumentException("Solo se permiten imágenes JPG, PNG, WEBP o GIF");
         }
         return guardarPublico(archivo, "imagenes", extension);
     }

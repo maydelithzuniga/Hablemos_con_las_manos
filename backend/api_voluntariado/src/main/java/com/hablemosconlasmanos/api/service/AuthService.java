@@ -36,7 +36,7 @@ public class AuthService {
         Usuario usuario = usuarioRepository.findByEmailIgnoreCase(r.email().trim()).orElse(null);
         boolean valido = passwordEncoder.matches(r.password(), usuario != null ? usuario.getPassword() : hashFicticio);
         if (usuario == null || !valido || !usuario.isActivo()) {
-            throw new BadCredentialsException("Email o contrasena incorrectos");
+            throw new BadCredentialsException("Email o contraseña incorrectos");
         }
         JwtService.Token token = jwtService.generar(usuario);
         return new TokenDTO(token.valor(), "Bearer", token.expiraEn(), UsuarioDTO.de(usuario));
@@ -50,7 +50,7 @@ public class AuthService {
     public void cambiarPassword(String email, CambioPasswordRequest r) {
         Usuario usuario = buscarPorEmail(email);
         if (!passwordEncoder.matches(r.passwordActual(), usuario.getPassword())) {
-            throw new BadCredentialsException("La contrasena actual no es correcta");
+            throw new BadCredentialsException("La contraseña actual no es correcta");
         }
         usuario.setPassword(passwordEncoder.encode(r.passwordNueva()));
     }
