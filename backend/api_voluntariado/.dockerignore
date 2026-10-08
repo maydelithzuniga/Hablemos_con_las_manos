@@ -1,0 +1,12 @@
+target
+data
+uploads
+.mvn
+mvnw
+mvnw.cmd
+.idea
+.vscode
+*.log
+Dockerfile
+.dockerignore
+docker-compose.yml
