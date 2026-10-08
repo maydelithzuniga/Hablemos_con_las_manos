@@ -21,6 +21,18 @@ npm run dev               # http://localhost:5173
 npm run build             # versión de producción en dist/
 ```
 
+### Con Docker
+
+```bash
+cd frontend
+docker build -t hablemos-web --build-arg VITE_API_URL=http://localhost:8080 .
+docker run -p 3000:80 hablemos-web   # http://localhost:3000
+```
+
+`VITE_API_URL` se incrusta al compilar, así que hay que pasarlo con `--build-arg`
+(por defecto `http://localhost:8080`). Recuerda incluir el origen del frontend en
+`CORS_ALLOWED_ORIGINS` del backend (`http://localhost:3000` ya viene permitido).
+
 Si la API no está encendida, las páginas muestran **contenido de ejemplo**
 (`src/data/relleno.ts`) con un aviso, para que el sitio nunca se vea vacío.
 
